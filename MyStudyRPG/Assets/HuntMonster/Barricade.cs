@@ -19,6 +19,7 @@ namespace Assets.HuntMonster
                 {
                     value = 0;
                 }
+                barrHp = value;
             }
         }
 

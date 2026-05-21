@@ -12,7 +12,7 @@ namespace Assets.HuntMonster
 
         protected override void OnDead()
         {
-            base.OnDead();
+            
             Debug.Log("아이템을 떨굽니다");
         }
 
