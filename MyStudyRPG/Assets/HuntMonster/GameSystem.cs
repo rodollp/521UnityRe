@@ -19,9 +19,12 @@ namespace HuntMonster
         private Queue<Monster> spawnQueue = new Queue<Monster>();
         private Storage<Monster> monsterStorage = new Storage<Monster>();
         private Stack<string> logs = new Stack<string>();
+        
 
         void PrintLog()
         {
+            Debug.Log("====로그확인===");
+
             while (logs.Count > 0)
             {
                 Debug.Log(logs.Pop());
@@ -31,14 +34,15 @@ namespace HuntMonster
         private int playerDamage = 200;
         void Start()
         {
-
-
             targets = new IDamageable[monsters.Count + barricades.Length];
+
+            
 
             for (int i = 0; i < monsters.Count; i++)
             {
                 targets[i] = monsters[i];
                 monsterStorage.Save(monsters[i]);
+                spawnQueue.Enqueue(monsters[i]);
             }
 
             for (int k = 0; k < monsterStorage.Count; k++)
@@ -59,29 +63,34 @@ namespace HuntMonster
             for (int i = 0; i < targets.Length; i++)
             {
                 targets[i].TakeDamage(playerDamage);
+                logs.Push($"{targets[i]}은 {playerDamage}만큼 피해를 받습니다");
+                
                 if (targets[i] is Monster monster && monster.IsDead)
-                {
+                { 
                     int exp = 100;
                     int level = Player.Level;
 
                     LevelUp(ref exp, ref level);
+                    logs.Push("플레이어 레벨업!");
 
                     Player.Level = level;
                     if (TryGetLoot(monster, out string lootName))
                     {
                         Debug.Log($"{lootName}획득");
+                        logs.Push($"아이템 {lootName} 획득");
                     }
                 }
 
             }
 
+            PrintLog();
 
         }
 
 
         void Spawn<T>(T entity) where T : IDamageable
         {
-
+            Debug.Log($"{entity} 생성");
         }
 
         void LevelUp(ref int exp, ref int level)

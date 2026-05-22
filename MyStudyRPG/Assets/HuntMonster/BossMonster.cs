@@ -45,8 +45,8 @@ namespace Assets.HuntMonster
 
         protected override void OnDead()
         {
-            
             Debug.Log("화려한 이펙트와 함께 보스 처치!");
+            base.OnDead();   
 
         }
     }

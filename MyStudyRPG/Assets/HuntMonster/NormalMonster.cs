@@ -14,6 +14,7 @@ namespace Assets.HuntMonster
         {
             
             Debug.Log("아이템을 떨굽니다");
+            base.OnDead();
         }
 
     }

@@ -47,7 +47,7 @@ public class Monster : MonoBehaviour , IDamageable
 
     protected virtual void OnDead()
     {
-        Debug.Log("몬스터가 사라졌습니다");
+        
         Debug.Log($"보상 : {reward.itemName}, 골드{reward.amount} ");
     }
 
